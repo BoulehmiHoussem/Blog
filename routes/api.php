@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//force cors and json headers
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+        Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
+    	Route::post('/register','Auth\ApiAuthController@register')->name('register.api');
+    	Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+});
